@@ -7,6 +7,8 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -35,8 +37,10 @@ public class ImbdTest {
 		WebElement e = driver.findElement(By.xpath("//a[text()='December 17, 2021 (United States)']"));
 		js.executeScript("arguments[0].scrollIntoView(true);",e);
 		System.out.println(e.getText());
+		Assert.assertEquals(e.getText(), "December 17, 2021 (United States)");
 		String s = driver.findElement(By.xpath("//a[text()='India']")).getText();
-		System.out.println(s);		
+		System.out.println(s);	
+		Assert.assertEquals(s, "India");
 		
 	}
 	
@@ -48,9 +52,15 @@ public class ImbdTest {
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("arguments[0].scrollIntoView(true);",e);
 		System.out.println(e.getText());
+		Assert.assertEquals(e.getText(),"17 December 2021");
 		String s = driver.findElement(By.xpath("//td[text()='India']")).getText();
 		System.out.println(s);
+		Assert.assertEquals(s, "India");
 		
+	}
+	@AfterTest
+	public void tearDown() {
+		driver.quit();
 	}
 
 }
